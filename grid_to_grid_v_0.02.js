@@ -11,81 +11,87 @@
 
 /*
 
-// >> الزامات:
+// ___________________________________________________________________________________
 
-// ----------------- Subform 3
+// >> الزامات کد گرید در گرید:
 
-subform_id_list['s3'] = '553696111603a2294edaa86040570285'; // id of subform 3 >> subform_number is 's3'
+subform_id_list = {
+  's3':'553696111603a2294edaa86040570285', // id of subform 3 >> subform_number is 's3'
+  's4':'227181373603a2294efc6f8017724506', // id of subform 4 >> subform_number is 's4'
+  's5':'951271154603a2294ecf756010271436', // id of subform 5 >> subform_number is 's5'
+}
 
-subform_grid_object['s3'] = { // 's3' is for subform 3
-  subform_id: subform_id_list['s3'],
-  subform_grid_fields_id: [ 'txt_s3_fName', 'txt_s3_lName', 'txt_s3_nationalCode', 'txt_s3_studyField', 'drp_s3_lastEduCert', 'lnk_s3_lastEduCert',
-                           'txt_s3_position', 'txt_s3_employType', 'drp_s3_employStatus', 'txt_s3_phone', 'txt_s3_email', ],
-  grid_hidden_fields_number: [4,5,6,7,8,9,10,11,  12], // 1,2,3,
-  unique_id_col_number: 12,
-  link_upload_pair: [ ['lnk_s3_lastEduCert_temp' ,'mfi_s3_lastEduCert_temp'] ], // جفت: [شناسه فیلد لینک وابسته به آپلود, u   شناسه فیلد آپلود ]
-  // در صورت عدم وجود "فیلد آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
-  // link_upload_pair: [],
+subform_grid_object = {
 
-  subgrid: {
-    "grd_s3_relatedCertIncentive": {
-      normal_col: [1,2],
-      unique_id_col_number: 3, // +element_subgrid['normal_col'].length + 1
-      link_upload_pair: [ [2,4] ], // جفت: [شماره ستون لینک وابسته به آپلود, u   شماره ستون آپلود]
-      // در صورت عدم وجود "ستون آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
-      // link_upload_pair: [],
-    },
-  }
+  's3': { // 's3' is for subform 3
+    subform_id: subform_id_list['s3'],
+    subform_grid_fields_id: [ 'txt_s3_fName', 'txt_s3_lName', 'txt_s3_nationalCode', 'txt_s3_studyField', 'drp_s3_lastEduCert', 'lnk_s3_lastEduCert',
+                            'txt_s3_position', 'txt_s3_employType', 'drp_s3_employStatus', 'txt_s3_phone', 'txt_s3_email', ],
+    grid_hidden_fields_number: [4,5,6,7,8,9,10,11,  12], // 1,2,3,
+    unique_id_col_number: 12,
+    link_upload_pair: [ ['lnk_s3_lastEduCert_temp' ,'mfi_s3_lastEduCert_temp'] ], // جفت: [شناسه فیلد لینک وابسته به آپلود, u   شناسه فیلد آپلود ]
+    // در صورت عدم وجود "فیلد آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
+    // link_upload_pair: [],
+
+    subgrid: {
+      "grd_s3_relatedCertIncentive": {
+        normal_col: [1,2],
+        unique_id_col_number: 3, // +element_subgrid['normal_col'].length + 1
+        link_upload_pair: [ [2,4] ], // جفت: [شماره ستون لینک وابسته به آپلود, u   شماره ستون آپلود]
+        // در صورت عدم وجود "ستون آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
+        // link_upload_pair: [],
+      },
+    }
+  },
+
+  's4': { // 's4' is for subform 4
+
+    subform_id: subform_id_list['s4'],
+    subform_grid_fields_id: [ 'txt_s4_abbreviation', 'txt_s4_engFullName', 'txt_s4_parsFullName', 'txt_s4_manufacturerCountry', 'txt_s4_manufacturerCo',
+                              'txt_s4_model', 'dat_s4_manufacturedDt', 'txt_s4_yearPurchased', 'txt_s4_serialNo', 'txt_s4_specializedAxis', 'drp_s4_periodicCalib',
+                              'txt_s4_calibCertNo', 'dat_s4_calibCertDt', 'lnk_s4_calibCert', 'txt_s4_calibrator', 'txt_s4_technician', 'lnk_s4_equipIns', 'txt_s4_equipInsName',
+                              'drp_s4_latestStatus', 'txt_s4_latestStatusOther',
+                              'hid_drp_s4_day', 'txt_s4_timeStart', 'txt_s4_timeEnd', 'drp_s4_serviceMethod', ],
+    grid_hidden_fields_number: [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,   25], // 1,2,3,
+    unique_id_col_number: 25,
+    link_upload_pair: [ ['lnk_s4_calibCert_temp' ,'mfi_s4_calibCert_temp'], ['lnk_s4_equipIns_temp' ,'mfi_s4_equipIns_temp'] ], // جفت: [شناسه فیلد لینک وابسته به آپلود, u   شناسه فیلد آپلود ]
+    // در صورت عدم وجود "فیلد آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
+    // link_upload_pair: [],
+
+    subgrid: {
+      "grd_s4_measureInfo": {
+        'normal_col': [1,2,3],
+        'unique_id_col_number': 4, // +element_subgrid['normal_col'].length + 1
+        'link_upload_pair': [], // جفت: [شماره ستون لینک وابسته به آپلود, u   شماره ستون آپلود]
+        // در صورت عدم وجود "ستون آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
+        // link_upload_pair: [],
+      },
+    }
+  },
+
+  's5': { // 's5' is for subform 5
+    subform_id: subform_id_list['s5'],
+    subform_grid_fields_id: [ 'txt_s5_examTitle', 'txt_s5_relatedEquip', 'txt_s5_standard', 'lnk_s5_testIns', 'txt_s5_testInsName', 'txt_s5_testingTariffs',
+                              'lnk_s5_sampleTestReport', 'txt_s5_testTimeMin', 'txt_s5_testTimeHour', 'txt_s5_testTimeDay', 'txt_s5_testTimeMonth', 'drp_s5_testStatus', ],
+    grid_hidden_fields_number: [4,5,6,7,8,9,10,11,12,  13], // 1,2,3,
+    unique_id_col_number: 13,
+    link_upload_pair: [ ['lnk_s5_testIns_temp' ,'mfi_s5_testIns_temp'], ['lnk_s5_sampleTestReport_temp' ,'mfi_s5_sampleTestReport_temp'] ], // جفت: [شناسه فیلد لینک وابسته به آپلود, u   شناسه فیلد آپلود ]
+    // در صورت عدم وجود "فیلد آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
+    // link_upload_pair: [],
+  },
+
 };
 
-// ----------------- Subform 4
+// ------------------------------
 
-subform_id_list['s4'] = '227181373603a2294efc6f8017724506'; // id of subform 4 >> subform_number is 's4'
+// فعال سازی کل کدها
+functionsHandlingCoreCenter("hid_isFormOld");
 
-subform_grid_object['s4'] = { // 's4' is for subform 4
-  subform_id: subform_id_list['s4'],
-  subform_grid_fields_id: [ 'txt_s4_abbreviation', 'txt_s4_engFullName', 'txt_s4_parsFullName', 'txt_s4_manufacturerCountry', 'txt_s4_manufacturerCo',
-                            'txt_s4_model', 'dat_s4_manufacturedDt', 'txt_s4_yearPurchased', 'txt_s4_serialNo', 'txt_s4_specializedAxis', 'drp_s4_periodicCalib',
-                            'txt_s4_calibCertNo', 'dat_s4_calibCertDt', 'lnk_s4_calibCert', 'txt_s4_calibrator', 'txt_s4_technician', 'lnk_s4_equipIns', 'txt_s4_equipInsName',
-                            'drp_s4_latestStatus', 'txt_s4_latestStatusOther',
-                            'hid_drp_s4_day', 'txt_s4_timeStart', 'txt_s4_timeEnd', 'drp_s4_serviceMethod', ],
-  grid_hidden_fields_number: [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,   25], // 1,2,3,
-  unique_id_col_number: 25,
-  link_upload_pair: [ ['lnk_s4_calibCert_temp' ,'mfi_s4_calibCert_temp'], ['lnk_s4_equipIns_temp' ,'mfi_s4_equipIns_temp'] ], // جفت: [شناسه فیلد لینک وابسته به آپلود, u   شناسه فیلد آپلود ]
-  // در صورت عدم وجود "فیلد آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
-  // link_upload_pair: [],
-
-  subgrid: {
-    "grd_s4_measureInfo": {
-      'normal_col': [1,2,3],
-      'unique_id_col_number': 4, // +element_subgrid['normal_col'].length + 1
-      'link_upload_pair': [], // جفت: [شماره ستون لینک وابسته به آپلود, u   شماره ستون آپلود]
-      // در صورت عدم وجود "ستون آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
-      // link_upload_pair: [],
-    },
-  }
-};
-
-// ----------------- Subform 5
-
-subform_id_list['s5'] = '951271154603a2294ecf756010271436'; // id of subform 5 >> subform_number is 's5'
-
-subform_grid_object['s5'] = { // 's5' is for subform 5
-  subform_id: subform_id_list['s5'],
-  subform_grid_fields_id: [ 'txt_s5_examTitle', 'txt_s5_relatedEquip', 'txt_s5_standard', 'lnk_s5_testIns', 'txt_s5_testInsName', 'txt_s5_testingTariffs',
-                            'lnk_s5_sampleTestReport', 'txt_s5_testTimeMin', 'txt_s5_testTimeHour', 'txt_s5_testTimeDay', 'txt_s5_testTimeMonth', 'drp_s5_testStatus', ],
-  grid_hidden_fields_number: [4,5,6,7,8,9,10,11,12,  13], // 1,2,3,
-  unique_id_col_number: 13,
-  link_upload_pair: [ ['lnk_s5_testIns_temp' ,'mfi_s5_testIns_temp'], ['lnk_s5_sampleTestReport_temp' ,'mfi_s5_sampleTestReport_temp'] ], // جفت: [شناسه فیلد لینک وابسته به آپلود, u   شناسه فیلد آپلود ]
-  // در صورت عدم وجود "فیلد آپلود" و "لینک وابسته به آن" داخل آرایه بالا خالی خواهد بود. به شکل زیر:
-  // link_upload_pair: [],
-};
+// ___________________________________________________________________________________
 
 */
 
-
 // ___________________________________________________________
-
 
 /**
  * Id Instruction:
@@ -103,19 +109,6 @@ subform_grid_object['s5'] = { // 's5' is for subform 5
  * Id of grid fields is not important and we use orther of columns in grid to transfer data.
  *
  */
-
-// فعال سازی کل کدها
-if (typeof isFormOld_id === "undefined") {
-  console.error('لطفا متغیر isFormOld_id را تعریف و مقداردهی کنید.');
-} else {
-  try {
-    isFormOld = ($("#"+isFormOld_id).getValue() == "1")? true : false;
-    subformGrid_prefix = "grd_subform_";
-    functionsHandlingCoreCenter();
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 // #########################################################################################
 // ############################### Connected Subform and Grid ##############################
@@ -144,7 +137,14 @@ $('html > head').append(styleTag);
 
 // _____________________________ Core Function _____________________________
 
-function functionsHandlingCoreCenter () {
+function functionsHandlingCoreCenter (isFormOld_id) {
+
+  if (typeof isFormOld_id === "undefined") {
+    console.error('لطفا ورودی isFormOld_id را مقداردهی کنید.');
+    return;
+  }
+  isFormOld = ($("#"+isFormOld_id).getValue() == "1")? true : false;
+  subformGrid_prefix = "grd_subform_";
 
   // Define objects:
   grid_row_index = {};
