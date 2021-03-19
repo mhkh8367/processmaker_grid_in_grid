@@ -1,4 +1,6 @@
-window.onload= function(){ 
+function changeFormStyle () {
+
+
   // _______________________________________________________________
 
   // To create multiline label
