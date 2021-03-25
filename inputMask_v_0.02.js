@@ -81,8 +81,8 @@ function createInputmask (inputMaskTypes) {
         inputmaskObject = { regex: "[0-9]|[0-2][0-9]|[3][0-1]", placeholder: "0" };
         sample = '25';
       } else if (maskType == "month") {
-        inputmaskObject = { regex: "[0-9]|[1][0-2]", placeholder: "0" };
-        sample = '08';
+        inputmaskObject = { regex: "[0-9]|[1][0-1]", placeholder: "0" };
+        sample = '8';
       } else if (maskType == "money") {
         inputmaskObject = { alias: 'integer', groupSeparator: ',', placeholder: "0", "removeMaskOnSubmit": true };
         sample = '438248245';
@@ -96,7 +96,7 @@ function createInputmask (inputMaskTypes) {
         inputmaskObject = { regex: "0[0-9]{0,10}", placeholder: "_" }; // regex: "0[0-9]{8,10}"
         sample = '02188334627';
       } else if (maskType == "eng") {
-        inputmaskObject = { regex: "[a-zA-Z ]+", placeholder: "_" };
+        inputmaskObject = { regex: "[a-zA-Z ,]+", placeholder: "_" };
         sample = 'English text';
       } else if (maskType == "pars") {
         inputmaskObject = { regex: "([ا-ی ء ئ]){2,255}", placeholder: "_" };
