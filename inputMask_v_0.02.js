@@ -70,19 +70,19 @@ function createInputmask (inputMaskTypes) {
         sample = 'تا سال 1499';
       } else if (maskType == "time") {
         inputmaskObject = { regex: "([0-1][0-9]|[2][0-3]):([0-5][0-9])", placeholder: "0" };
-        sample = '15:39';
+        sample = 'از 00:00 تا 23:59';
       } else if (maskType == "second" || maskType == "minute") {
         inputmaskObject = { regex: "[0-9]|[0-5][0-9]", placeholder: "0" };
-        sample = '32';
+        sample = 'از 0 تا 59';
       } else if (maskType == "hour") {
         inputmaskObject = { regex: "[0-9]|[0-1][0-9]|[2][0-3]", placeholder: "0" };
-        sample = '17';
+        sample = 'از 0 تا 23';
       } else if (maskType == "day") {
         inputmaskObject = { regex: "[0-9]|[0-2][0-9]|[3][0-1]", placeholder: "0" };
-        sample = '25';
+        sample = 'از 0 تا 31';
       } else if (maskType == "month") {
         inputmaskObject = { regex: "[0-9]|[1][0-1]", placeholder: "0" };
-        sample = '8';
+        sample = 'از 0 تا 11';
       } else if (maskType == "money") {
         inputmaskObject = { alias: 'integer', groupSeparator: ',', placeholder: "0", "removeMaskOnSubmit": true };
         sample = '438248245';
@@ -91,7 +91,7 @@ function createInputmask (inputMaskTypes) {
         sample = '4282783648';
       } else if (maskType == "mobile") {
         inputmaskObject = { regex: "09[0-9]{9}", placeholder: "_" };
-        sample = '09125376253';
+        sample = 'یازده رقمی 09125376253';
       } else if (maskType == "phone" | maskType == "tel") {
         inputmaskObject = { regex: "0[0-9]{0,10}", placeholder: "_" }; // regex: "0[0-9]{8,10}"
         sample = '02188334627';
