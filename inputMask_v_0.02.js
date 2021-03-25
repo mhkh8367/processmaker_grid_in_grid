@@ -97,7 +97,7 @@ function createInputmask (inputMaskTypes) {
         sample = '02188334627';
       } else if (maskType == "eng") {
         inputmaskObject = { regex: "[a-zA-Z ,]+", placeholder: "_" };
-        sample = 'متن دارای انگلیسی همراه با کاما و فاصله';
+        sample = 'متن دارای حروف انگلیسی همراه با کاما و فاصله';
       } else if (maskType == "pars") {
         inputmaskObject = { regex: "([ا-ی ء ئ]){2,255}", placeholder: "_" };
         sample = 'متن دارای حروف فارسی';
