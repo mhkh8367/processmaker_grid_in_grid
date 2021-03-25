@@ -67,21 +67,21 @@ function createInputmask (inputMaskTypes) {
         sample = 'my@gmail.com';
       } else if (maskType == "year") {
         inputmaskObject = { regex: "[0-1][0-4][0-9][0-9]", placeholder: "_" }; // For Year Shamsi
-        sample = '1380';
+        sample = 'تا سال 1499';
       } else if (maskType == "time") {
-        inputmaskObject = { regex: "([0-1][0-9]|[2][0-4]):([0-5][0-9])", placeholder: "0" };
+        inputmaskObject = { regex: "([0-1][0-9]|[2][0-3]):([0-5][0-9])", placeholder: "0" };
         sample = '15:39';
       } else if (maskType == "second" || maskType == "minute") {
-        inputmaskObject = { regex: "[0-5][0-9]|[6][0]", placeholder: "0" };
+        inputmaskObject = { regex: "[0-9]|[0-5][0-9]", placeholder: "0" };
         sample = '32';
       } else if (maskType == "hour") {
-        inputmaskObject = { regex: "[0-1][0-9]|[2][0-3]", placeholder: "0" };
+        inputmaskObject = { regex: "[0-9]|[0-1][0-9]|[2][0-3]", placeholder: "0" };
         sample = '17';
       } else if (maskType == "day") {
-        inputmaskObject = { regex: "[0-2][0-9]|[3][0-1]", placeholder: "0" };
+        inputmaskObject = { regex: "[0-9]|[0-2][0-9]|[3][0-1]", placeholder: "0" };
         sample = '25';
       } else if (maskType == "month") {
-        inputmaskObject = { regex: "[0][0-9]|[1][0-2]", placeholder: "0" };
+        inputmaskObject = { regex: "[0-9]|[1][0-2]", placeholder: "0" };
         sample = '08';
       } else if (maskType == "money") {
         inputmaskObject = { alias: 'integer', groupSeparator: ',', placeholder: "0", "removeMaskOnSubmit": true };
@@ -93,7 +93,7 @@ function createInputmask (inputMaskTypes) {
         inputmaskObject = { regex: "09[0-9]{9}", placeholder: "_" };
         sample = '09125376253';
       } else if (maskType == "phone" | maskType == "tel") {
-        inputmaskObject = { regex: "0[0-9]+", placeholder: "_" }; // regex: "0[0-9]{8,10}"
+        inputmaskObject = { regex: "0[0-9]{0,10}", placeholder: "_" }; // regex: "0[0-9]{8,10}"
         sample = '02188334627';
       } else if (maskType == "eng") {
         inputmaskObject = { regex: "[a-zA-Z ]+", placeholder: "_" };
