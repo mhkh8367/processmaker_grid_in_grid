@@ -562,7 +562,7 @@ function createMessageModal (domVariable) {
 }
 
 // Create a modal to show subform
-function createSubformModal (target_row) {
+function createSubformModal (target_row, isEditMode = false) {
 
   // Source: https://jqueryui.com/dialog/#modal-confirmation
   // Source: https://api.jqueryui.com/dialog/
@@ -572,6 +572,30 @@ function createSubformModal (target_row) {
   // /ext-lib/jquery-ui.css,
 
   // -----------------------------------------------------
+
+  if (!isEditMode) {
+
+    var buttons_var = {
+      "بستن": function() {
+        handleModalConfirm(false, target_row);
+        $(this).dialog("close");
+      },
+      "ذخیره": function() {
+        handleModalConfirm(true, target_row);
+        $(this).dialog("close");
+      },
+    };
+
+  } else {
+
+    var buttons_var = {
+      "بستن": function() {
+        handleModalConfirm(false, target_row);
+        $(this).dialog("close");
+      },
+    };
+
+  }
 
   $("#"+subform_grid_object[subform_number].subform_id).dialog({
     title: 'ورود اطلاعات به لیست',
@@ -604,16 +628,7 @@ function createSubformModal (target_row) {
         .html('<span class="glyphicon glyphicon-ok"></span> ذخیره');
 
     },
-    buttons: {
-      "بستن": function() {
-        handleModalConfirm(false, target_row);
-        $(this).dialog("close");
-      },
-      "ذخیره": function() {
-        handleModalConfirm(true, target_row);
-        $(this).dialog("close");
-      },
-    },
+    buttons: buttons_var,
   });
 
 }
@@ -622,7 +637,7 @@ function createSubformModal (target_row) {
 function add_edit_button (subformGrid_prefix, subform_number, rowNumber) {
 
   var edit_btn = '<div style="vertical-align: top; margin-right: 5px; padding: 4px;" class="pmdynaform-grid-removerow-static">\
-<button type="button" class="glyphicon glyphicon-edit btn btn-success btn-sm" onclick="edit_row_modal(this);">\
+<button type="button" id="edit_button" class="glyphicon glyphicon-edit btn btn-success btn-sm" onclick="edit_row_modal(this);">\
 </div>';
   $("#"+subformGrid_prefix+ subform_number +" .pmdynaform-grid-tbody .pmdynaform-grid-row").eq(+rowNumber - 1).append(edit_btn);
 
@@ -647,7 +662,7 @@ function add_row_modal () {
   }
 
   transfer_data_into_grid(grid_row_index.subform_number);
-  createSubformModal(grid_row_index.subform_number);
+  createSubformModal(grid_row_index.subform_number, false);
   is_modal_created = true;
 
 }
@@ -655,15 +670,16 @@ function add_row_modal () {
 // >> F04 : Call a modal to edit grid row
 function edit_row_modal (this_element) {
 
-  subform_number = $(this_element).closest(".pmdynaform-field-grid").attr('id').replace(subformGrid_prefix, "");
+  subform_number = $(this_element).closest(".pmdynaform-field-grid").attr('id').replace(subformGrid_prefix, ""); // Example: 's3'
 
   // ---------------
 
   // extract_row_values
-  let grid_row = $(this_element).parent().parent();
-  // grid_row.css({"font-weight": "bold", "background-color": "red"});
+  // let grid_row = $(this_element).parent().parent();
+  let grid_row = $(this_element).closest(".pmdynaform-grid-row");
 
-  grid_row_index.subform_number = +grid_row.index()+1;
+  // grid_row_index.subform_number = +grid_row.index()+1;
+  grid_row_index.subform_number = +grid_row.find('.index-row .rowIndex span').text();
 
   // ---------------------------
 
@@ -673,14 +689,15 @@ function edit_row_modal (this_element) {
     $('#'+ subform_grid_object[subform_number].subform_id +' #'+ element +'_temp').setValue(related_grid_row_value[index]);
   });
 
+  let isEditMode = (grid_row.find('.remove-row').length == 0)? true : false;
+
   add_subgrid_main_to_subgrid(grid_row_index.subform_number);
-  createSubformModal(grid_row_index.subform_number);
+  createSubformModal(grid_row_index.subform_number, isEditMode);
   is_modal_created = true;
 
   setMyInt();
 
 }
-
 
 // _____________________________ Subgrids <> Maingrids Functions _____________________________
 
