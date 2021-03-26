@@ -33,5 +33,7 @@ function changeFormStyle () {
   $(".pmdynaform-radio-items div.radio").addClass("radio-inline");
   $(".pmdynaform-checkbox-items div.checkbox").addClass("radio-inline");
 
-}
+  // Change the style of jbox tooltip
+  $('html > head').append($('<style> .jBox-content { text-align: right; font-family: "IRANSans", Arial, Tahoma, Verdana;} </style>'));
 
+}
