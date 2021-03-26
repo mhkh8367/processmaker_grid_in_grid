@@ -128,6 +128,3 @@ function createInputmask (inputMaskTypes) {
   }
 
 }
-
-// Change the style of jbox tooltip
-$('html > head').append($('<style> .jBox-content { text-align: right; font-family: "IRANSans", Arial, Tahoma, Verdana;} </style>'));
