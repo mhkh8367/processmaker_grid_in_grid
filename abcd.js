@@ -1,1 +1,0 @@
-alert('CCCC4C');
