@@ -16,8 +16,11 @@ https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6-beta.43/jquery.inp
 // ______________________ کنترل ماسک ها ______________________
 
 var inputMaskTypes = {
-  number: [ "txt_s5_testTimeMonth_temp", "txt_s5_testTimeMonth" ], // ,"txt_s4_serialNo_temp", "txt_s1_economicCode"
+  number: [ "txt_s5_testTimeMonth_temp", "txt_s5_testTimeMonth" ], // اعداد صحیح و اعشاری
+  integer: [ ], // فقط اعداد صحییح
+  float: [ ], // اعداد اعشاری با 2 رقم اعشار
   email: [ "txt_s3_email", "txt_s3_email_temp" ],
+  website: [ "txt_s3_website" ],
   year: [ 'txt_s1_yearEstablished', 'txt_s2_yearEstablish', 'txt_s4_yearPurchased_temp', 'txt_s4_yearPurchased',
           'txt_s2_netStartYear', 'txt_s2_netEndYear' ],
   time: [ 'txt_s4_timeStart_temp', 'txt_s4_timeEnd_temp', 'txt_s4_timeStart', 'txt_s4_timeEnd' ],
@@ -51,7 +54,6 @@ createInputmask(inputMaskTypes);
 // تابع ایجاد ماسک
 function createInputmask (inputMaskTypes) {
 
-  // radixPoint >> علامت اعشار
   for (const maskType in inputMaskTypes) {
     if (Object.hasOwnProperty.call(inputMaskTypes, maskType)) {
       const element = inputMaskTypes[maskType];
@@ -59,12 +61,23 @@ function createInputmask (inputMaskTypes) {
       var sample = '', direction = 'ltr';
 
       if (maskType == "number") {
-        // Available Options: allowMinus = false, allowPlus = false, autoGroup = false, groupSeparator = ",", radixPoint = "."
-        inputmaskObject = { alias: 'integer', groupSeparator: ',', placeholder: "_", "removeMaskOnSubmit": true }; // regex: "[0-9]+"
+        // Available Options: allowMinus = false, allowPlus = false, autoGroup = false, groupSeparator = ",", radixPoint = "." (radixPoint >> علامت اعشار)
+        inputmaskObject = { alias: 'integer', radixPoint = ".", placeholder: "_", "removeMaskOnSubmit": true }; // regex: "[0-9]+"
         sample = '123456789';
+      } else if (maskType == "integer") {
+        // Available Options: allowMinus = false, allowPlus = false, autoGroup = false, groupSeparator = ",", radixPoint = "." (radixPoint >> علامت اعشار)
+        inputmaskObject = { alias: 'integer', placeholder: "_" }; // regex: "[0-9]+"
+        sample = '892374';
+      } else if (maskType == "float") {
+        // Available: 'alias': 'decimal', 'groupSeparator': ',', digits: 2, 'removeMaskOnSubmit': true, placeholder: "_"
+        inputmaskObject = { 'alias': 'decimal', digits: 2, placeholder: "_" };
+        sample = 'اعداد اعشاری با 2 رقم اعشار';
       } else if (maskType == "email") {
         inputmaskObject = { alias: 'email' };
         sample = 'my@gmail.com';
+      } else if (maskType == "website") {
+        inputmaskObject = { regex: "(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)", placeholder: "_" };
+        sample = 'https://www.google.com';
       } else if (maskType == "year") {
         inputmaskObject = { regex: "[0-1][0-4][0-9][0-9]", placeholder: "_" }; // For Year Shamsi
         sample = 'تا سال 1499';
@@ -96,8 +109,8 @@ function createInputmask (inputMaskTypes) {
         inputmaskObject = { regex: "0[0-9]{0,10}", placeholder: "_" }; // regex: "0[0-9]{8,10}"
         sample = '02188334627';
       } else if (maskType == "eng") {
-        inputmaskObject = { regex: "[a-zA-Z ,]+", placeholder: "_" };
-        sample = 'متن دارای حروف انگلیسی همراه با کاما و فاصله';
+        inputmaskObject = { regex: "[A-za-z0-9\-\s\n\r\t\?\"\:\}\{\|\+\_\)\(\*\&\^\%\!\~\`\=\'\,\.\-\[\]\/\.]+", placeholder: "_" };
+        sample = 'متن دارای حروف انگلیسی';
       } else if (maskType == "pars") {
         inputmaskObject = { regex: "([ا-ی ء ئ]){2,255}", placeholder: "_" };
         sample = 'متن دارای حروف فارسی';
@@ -106,20 +119,26 @@ function createInputmask (inputMaskTypes) {
         return false;
       }
 
+      // در هنگام ورود ناقص اطلاعات، اطلاعات پاک شود
       inputmaskObject["clearIncomplete"] = true;
 
       element.forEach((input_element) => {
 
-        let targetInput = $('input[id*="[' + input_element + ']"]');
+        // اعمال نمونه ورودی
+        if (sample != "") {
 
-        targetInput.inputmask(inputmaskObject);
+          let targetInput = $('input[id*="[' + input_element + ']"]');
+          targetInput.inputmask(inputmaskObject);
 
-        targetInput.jBox('Tooltip', {
-          theme: 'TooltipDark',
-          content: 'نمونه ورودی:<br>'+ sample,
-          animation:{open: 'pulse', close: 'flip'},
-        });
+          targetInput.jBox('Tooltip', {
+            theme: 'TooltipDark',
+            content: 'نمونه ورودی:<br>'+ sample,
+            animation:{open: 'pulse', close: 'flip'},
+          });
 
+        }
+
+        // اعمال جهت ورودی در فیلد
         targetInput.attr({'dir':direction});
 
       });
