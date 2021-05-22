@@ -35,5 +35,53 @@ function changeFormStyle () {
 
   // Change the style of jbox tooltip
   $('html > head').append($('<style> .jBox-content { text-align: right; font-family: "IRANSans", Arial, Tahoma, Verdana;} </style>'));
+  
+  // ---------------------------
+
+  $('html > head').append($( 
+    '<style>'+
+      '.sarbarg {'+
+        'width: 100%;'+
+        'height: 32px;'+
+        'border-bottom: 2px solid #b8d2ff;'+
+      '}'+
+      '.sarbarg_title {'+
+        'font-size: 14px;'+
+        'color: #002057;'+
+        'background: #b8d2ff;'+
+        'padding: 4px 10px;'+
+        'text-indent: 10px;'+
+        'display: inline-block;'+
+        'line-height: 1.7;'+
+        'position: relative;'+
+      '}'+
+      '.sarbarg_title::after {'+
+        'width: 0;'+
+        'height: 0;'+
+        'content: "";'+
+        'position: absolute;'+
+        'top: 0;'+
+        'right: 100%;'+
+        'border-bottom: 32px solid #b8d2ff;'+
+        'border-left: 32px solid transparent;'+
+      '}'+
+      '.pmdynaform-form {'+
+        'font-family: "IRANSans", Arial, Tahoma, Verdana !important;'+
+      '}'+
+    '</style>'
+  ));
+
+  let icon_class = ["fa fa-pencil", ];
+  icon_class.forEach((icon_element, index) => {
+    let dom_obj = $('h5[id*="sb' + (index + 1) + '_"]');
+    for (const key in dom_obj) {
+      if (Object.hasOwnProperty.call(dom_obj, key)) {
+        const element = dom_obj.eq(key); // dom_obj[key];
+        element.html(
+          '<div class="sarbarg"><p class="sarbarg_title"><i class="' + icon_class + '"></i> ' + element.find("p span").html() + "</p></div>"
+        );
+      }
+    }
+  });
 
 }
