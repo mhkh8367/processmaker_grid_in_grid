@@ -64,7 +64,7 @@ function createInputmask (inputMaskTypes) {
 
       if (maskType == "number") {
         // Available Options: allowMinus = false, allowPlus = false, autoGroup = false, groupSeparator = ",", radixPoint = "." (radixPoint >> علامت اعشار)
-        inputmaskObject = { alias: 'integer', radixPoint = ".", placeholder: "_", "removeMaskOnSubmit": true }; // regex: "[0-9]+"
+        inputmaskObject = { alias: 'integer', radixPoint: ".", placeholder: "_", "removeMaskOnSubmit": true }; // regex: "[0-9]+"
         sample = '123456789';
       } else if (maskType == "integer") {
         // Available Options: allowMinus = false, allowPlus = false, autoGroup = false, groupSeparator = ",", radixPoint = "." (radixPoint >> علامت اعشار)
@@ -126,11 +126,14 @@ function createInputmask (inputMaskTypes) {
 
       element.forEach((input_element) => {
 
+        let targetInput = $('input[id*="[' + input_element + ']"]');
+        targetInput.inputmask(inputmaskObject);
+
+        // اعمال جهت ورودی در فیلد
+        targetInput.attr({'dir':direction});
+
         // اعمال نمونه ورودی
         if (sample != "") {
-
-          let targetInput = $('input[id*="[' + input_element + ']"]');
-          targetInput.inputmask(inputmaskObject);
 
           targetInput.jBox('Tooltip', {
             theme: 'TooltipDark',
@@ -139,9 +142,6 @@ function createInputmask (inputMaskTypes) {
           });
 
         }
-
-        // اعمال جهت ورودی در فیلد
-        targetInput.attr({'dir':direction});
 
       });
       
