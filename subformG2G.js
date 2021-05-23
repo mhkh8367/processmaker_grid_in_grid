@@ -1,13 +1,9 @@
 
-// This External Library (این کتابخانه خارجی):
-/*
-/ext-lib/mask/subformG2G.js,
-*/
-
 // Required External Library (کتابخانه های خارجی لازم):
 /*
 /ext-lib/jquery-ui.js,
 /ext-lib/jquery-ui.css,
+/ext-lib/mask/subformG2G.js,
 */
 
 // ___________________________________________________________
