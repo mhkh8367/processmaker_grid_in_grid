@@ -1,5 +1,5 @@
 
-// This External Library (این کتابخانه های خارجی):
+// This External Library (این کتابخانه خارجی):
 /*
 /ext-lib/mask/subformG2G.js,
 */
