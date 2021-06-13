@@ -419,10 +419,10 @@ function updateDLinkPlace_inForm (link_field_id, upload_field_id) {
       const element2 = file_models[index];
 
       if (element1.css('display') == 'none'
-        || element2.attributes.appDocUid == null
-        || element2.attributes.isValid != true
-        || element2.attributes.percentage != 100
-      ) continue;
+          || element2.attributes.appDocUid == null
+          || element2.attributes.isValid != true
+          || element2.attributes.percentage != 100
+         ) continue;
       $("#"+link_field_id).setValue(element2.getLinkDownload()); // Set download link
       // $('#'+upload_field_id+' a.fa-trash').click();
       element1.find('a.fa-trash').click();
@@ -457,7 +457,7 @@ function updateDLinkPlace_inGrid (grid_id, link_col_index, upload_col_index) {
     var file_models = getFieldById(grid_id).gridtable[i][upload_col_index-1].model.attributes.fileCollection.models;
 
     if (file_models.length != 0) {
-    console.log(file_models);
+      console.log(file_models);
 
       // && file_models[0].attributes.percentage == 100
 
@@ -470,10 +470,10 @@ function updateDLinkPlace_inGrid (grid_id, link_col_index, upload_col_index) {
         const element2 = file_models[index];
 
         if (element1.css('display') == 'none'
-          || element2.attributes.appDocUid == null
-          || element2.attributes.isValid != true
-          || element2.attributes.percentage != 100
-        ) continue;
+            || element2.attributes.appDocUid == null
+            || element2.attributes.isValid != true
+            || element2.attributes.percentage != 100
+           ) continue;
 
         console.log(element2.attributes.appDocUid);
 
@@ -678,8 +678,8 @@ function createSubformModal (target_row, isEditMode = false) {
 function add_edit_button (subformGrid_prefix, subform_number, rowNumber) {
 
   var edit_btn = '<div style="vertical-align: top; margin-right: 5px; padding: 4px;" class="pmdynaform-grid-removerow-static">\
-    <button type="button" id="edit_button" class="btn btn-success btn-sm" onclick="edit_row_modal(this);">ویرایش/مشاهده</button>\
-  </div>';
+<button type="button" id="edit_button" class="btn btn-success btn-sm" onclick="edit_row_modal(this);">ویرایش/مشاهده</button>\
+</div>';
   $("#"+subformGrid_prefix+ subform_number +" .pmdynaform-grid-tbody .pmdynaform-grid-row").eq(+rowNumber - 1).append(edit_btn);
 
 }
@@ -867,22 +867,23 @@ function add_subgrid_main_to_subgrid (target_row) {
 
 // Use jBox to alert as notifications
 function dispAlert(msg, color = "red") {
-	// External Libraries (For Arian Novin http://ls.arian.co.ir:8081):
-	// /ext-lib/jBox.all.min.css,
-	// /ext-lib/jBox.all.min.js,
+  // External Libraries (For Arian Novin http://ls.arian.co.ir:8081):
+  // /ext-lib/jBox.all.min.css,
+  // /ext-lib/jBox.all.min.js,
 
-	try {
-		new jBox("Notice", {
-			position: { x: "center", y: "center" }, // x: "right", y: "top"
-			content: msg,
-			color: color,
-		});
-	} catch (e) {
-		alert(msg);
-	}
+  try {
+    new jBox("Notice", {
+      position: { x: "center", y: "center" }, // x: "right", y: "top"
+      content: msg,
+      color: color,
+    });
+  } catch (e) {
+    alert(msg);
+  }
 }
 
 $('html > head').append($('<style> .pmdynaform-grid-removerow-static .btn-success { text-align: right; font-family: "IRANSans", Arial, Tahoma, Verdana;} </style>'));
 
 // #########################################################################################
 // #########################################################################################
+
