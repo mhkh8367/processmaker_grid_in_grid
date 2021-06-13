@@ -4,6 +4,8 @@
 /ext-lib/jquery-ui.js,
 /ext-lib/jquery-ui.css,
 /ext-lib/mask/subformG2G.js,
+/ext-lib/jBox.all.min.css,
+/ext-lib/jBox.all.min.js,
 */
 
 // ___________________________________________________________
@@ -92,40 +94,9 @@ functionsHandlingCoreCenter("hid_isFormOld");
 
 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// #######################################################################################################################
+// #######################################################################################################################
+// #######################################################################################################################
 
 // ___________________________________________________________
 
@@ -225,6 +196,7 @@ function functionsHandlingCoreCenter (isFormOld_id) {
 
       // Add button on click
       $("#"+subformGrid_prefix+key_subform+" button.pmdynaform-grid-newitem").click(add_row_modal);
+      // Note: .click(add_row_modal) is the same as .click(function(){ add_row_modal(); })
 
       // >> Deactivating "New Row" button of grd_subform
       // Source: https://stackoverflow.com/questions/1687790/how-to-remove-onclick-with-jquery
@@ -270,7 +242,7 @@ function functionsHandlingCoreCenter (isFormOld_id) {
             }
           }
 
-          // Hode the main-grid of this subgrid
+          // Hide the main-grid of this subgrid
           $("#"+key_subgrid+"_main").hide();
 
         }
@@ -314,7 +286,7 @@ function transfer_data_into_grid (target_row) {
     $("#"+subformGrid_prefix+ subform_number +" .pmdynaform-grid-tbody .pmdynaform-grid-row").eq(+$("#"+subformGrid_prefix+ subform_number)
                                                                                                  .getNumberRows() - 1).find('.remove-row').attr({'subform_unique_id':subform_unique_id, 'subform_number':subform_number});
 
-    $(document).on('click', '[subform_unique_id='+subform_unique_id+']', function(){
+    $(document).on('click', '[subform_number='+subform_number+']', function(){
 
       var subform_unique_id = $(this).attr('subform_unique_id');
       var subform_number    = $(this).attr('subform_number');
@@ -436,20 +408,45 @@ function updateDLinkPlace_inForm (link_field_id, upload_field_id) {
   // Source: https://www.pmusers.com/index.php/Manipulating_Multiple_File_controls_with_JavaScript
 
   var file_models = $("#"+upload_field_id).getInfo().fileCollection.models;
-  if (file_models.length != 0 && file_models[0].attributes.percentage == 100 && file_models[0].attributes.isValid == true) {
+  if (file_models.length != 0) {
 
-    setTimeout(function(){
-      downloadLink = file_models[0].getLinkDownload();
-      $("#"+link_field_id).setValue(downloadLink);
-      $("#lnk_s1_infoAttach").setValue(downloadLink);
+    var deleteIcons = $('#'+upload_field_id+' .pmdynaform-multiplefile-box [data-action="delete"]');
+    var delCount = 0;
+    // for (let index = 0; index < deleteIcons.length; index++) {
+    for (let index = 0; index < file_models.length; index++) {
 
-      $('#'+upload_field_id+' a.fa-trash').click();
-    }, 1000);
+      const element1 = deleteIcons.eq(index);
+      const element2 = file_models[index];
+
+      if (element1.css('display') == 'none'
+        || element2.attributes.appDocUid == null
+        || element2.attributes.isValid != true
+        || element2.attributes.percentage != 100
+      ) continue;
+      $("#"+link_field_id).setValue(element2.getLinkDownload()); // Set download link
+      // $('#'+upload_field_id+' a.fa-trash').click();
+      element1.find('a.fa-trash').click();
+
+      delCount++;
+
+    }
+
+    if (delCount > 0) {
+      dispAlert('آخرین فایل قایل قبول آپلود شده، جهت دانلود به لینک انتقال یافت.', "blue");
+      delCount = 0;
+    }
 
   }
 
 }
 
+// *************************************************************
+// // The row of the "uploadFile" field
+// var fileGridRow;
+// $(document).on('click', '.pmdynaform-grid-row .form-group', function(){
+//   alert('WWW');
+// });
+// *************************************************************
 
 function updateDLinkPlace_inGrid (grid_id, link_col_index, upload_col_index) {
 
@@ -458,23 +455,66 @@ function updateDLinkPlace_inGrid (grid_id, link_col_index, upload_col_index) {
   var rows = $("#"+grid_id).getNumberRows();
   for (var i=0; i < rows; i++) {
     var file_models = getFieldById(grid_id).gridtable[i][upload_col_index-1].model.attributes.fileCollection.models;
-    if (file_models.length != 0 && file_models[0].attributes.percentage == 100 && file_models[0].attributes.isValid == true) {
 
-      var loaded_files = $('.pmdynaform-multiplefile-box .pmdynaform-mfile-wrapper');
-      if (loaded_files.length > 1) {
-        // console.log(loaded_files.eq(0));
-        for (let index = 0; index < loaded_files.length - 1; index++) {
-          loaded_files.eq(index).find("a.fa-trash").click();
+    if (file_models.length != 0) {
+    console.log(file_models);
+
+      // && file_models[0].attributes.percentage == 100
+
+      var deleteIcons = $('#modalUpload .pmdynaform-multiplefile-box [data-action="delete"]');
+      var delCount = 0;
+      // for (let index = 0; index < deleteIcons.length; index++) {
+      for (let index = 0; index < file_models.length; index++) {
+
+        const element1 = deleteIcons.eq(index);
+        const element2 = file_models[index];
+
+        if (element1.css('display') == 'none'
+          || element2.attributes.appDocUid == null
+          || element2.attributes.isValid != true
+          || element2.attributes.percentage != 100
+        ) continue;
+
+        console.log(element2.attributes.appDocUid);
+
+        $("#"+grid_id).setValue(element2.getLinkDownload(), +i+1, link_col_index); // Set download link
+        // $('#'+upload_field_id+' a.fa-trash').click();
+        element1.find('a.fa-trash').click();
+
+        // console.log(element1.css('display'));
+        // console.log(element2.attributes);
+        delCount++;
+
+      }
+
+      if (delCount > 0) {
+        dispAlert('آخرین فایل قایل قبول آپلود شده، جهت دانلود به لینک انتقال یافت.', "blue");
+        delCount = 0;
+      }
+
+      // --------------------------------------
+
+      /*
+      // کد سابق:
+
+      var deleteIcons = $('#modalUpload .pmdynaform-multiplefile-box .pmdynaform-mfile-wrapper');
+      if (deleteIcons.length > 1) {
+        // console.log(deleteIcons.eq(0));
+        for (let index = 0; index < deleteIcons.length - 1; index++) {
+          deleteIcons.eq(index).find('a.fa-trash').click();
         }
       }
 
       let downloadLink = file_models[0].getLinkDownload();
       $("#"+grid_id).setValue(downloadLink, +i+1, link_col_index);
 
+      */
+
     }
   }
 
 }
+
 
 // >> Force multiple file uploader to select just one file in each file selection
 // Source: https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
@@ -638,8 +678,8 @@ function createSubformModal (target_row, isEditMode = false) {
 function add_edit_button (subformGrid_prefix, subform_number, rowNumber) {
 
   var edit_btn = '<div style="vertical-align: top; margin-right: 5px; padding: 4px;" class="pmdynaform-grid-removerow-static">\
-<button type="button" id="edit_button" class="glyphicon glyphicon-edit btn btn-success btn-sm" onclick="edit_row_modal(this);">\
-</div>';
+    <button type="button" id="edit_button" class="btn btn-success btn-sm" onclick="edit_row_modal(this);">ویرایش/مشاهده</button>\
+  </div>';
   $("#"+subformGrid_prefix+ subform_number +" .pmdynaform-grid-tbody .pmdynaform-grid-row").eq(+rowNumber - 1).append(edit_btn);
 
 }
@@ -824,6 +864,25 @@ function add_subgrid_main_to_subgrid (target_row) {
   }
 
 }
+
+// Use jBox to alert as notifications
+function dispAlert(msg, color = "red") {
+	// External Libraries (For Arian Novin http://ls.arian.co.ir:8081):
+	// /ext-lib/jBox.all.min.css,
+	// /ext-lib/jBox.all.min.js,
+
+	try {
+		new jBox("Notice", {
+			position: { x: "center", y: "center" }, // x: "right", y: "top"
+			content: msg,
+			color: color,
+		});
+	} catch (e) {
+		alert(msg);
+	}
+}
+
+$('html > head').append($('<style> .pmdynaform-grid-removerow-static .btn-success { text-align: right; font-family: "IRANSans", Arial, Tahoma, Verdana;} </style>'));
 
 // #########################################################################################
 // #########################################################################################
